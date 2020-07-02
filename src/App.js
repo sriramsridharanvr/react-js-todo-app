@@ -1,42 +1,28 @@
 import React from "react";
+import { connect } from "react-redux";
 import Welcome from "./components/Welcome";
 import TodoList from "./components/TodoList";
+import CreateTodoForm from "./components/CreateTodoForm";
 
-const user = {
-  name: "Ruksar",
-  email: "ruksar@yethi.in",
-};
-
-const initialTodoData = [
-  {
-    id: 1,
-    completed: false,
-    task: "My first todo",
-  },
-  {
-    id: 2,
-    completed: false,
-    task: "My second todo",
-  },
-  {
-    id: 3,
-    completed: false,
-    task: "My third todo",
-  },
-];
-
-function App() {
+const App = (props) => {
   return (
-    <div className="App">
+    <div className="App" style={{ padding: "20px" }}>
       <header className="App-header">
-        <Welcome user={user} name="Ruksar" email="ruksar.banu@yethi.in" />
+        <Welcome name="Ruksar" email="ruksar.banu@yethi.in" />
       </header>
       <div className="todo-list">
-        <h3>Todos: 4</h3>
+        <h3>Todos: {props.todos.length}</h3>
+        <hr />
+        <CreateTodoForm />
+        <hr />
         <TodoList />
       </div>
     </div>
   );
-}
+};
 
-export default App;
+const mapStateToProps = (state) => ({
+  todos: state.todo.todos,
+});
+
+export default connect(mapStateToProps, null)(App);

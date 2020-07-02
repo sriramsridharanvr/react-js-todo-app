@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { connect } from "react-redux";
+
+import { fetchTodosFromServer } from "../store/actions/todoActions";
 
 //react hooks
 const TodoList = (props) => {
-  const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchTodosFromServer();
+    props.fetchTodosFromServer();
   }, []);
 
-  const fetchTodosFromServer = async () => {
-    const url = "http://localhost:8080/api/todos";
-    const response = await axios.get(url);
-    setTodos(response.data);
-    setLoading(false);
-  };
-
   return !loading ? (
-    todos.length > 0 ? (
-      todos.map((todo) => <p key={todo.id}>{todo.task}</p>)
+    props.todos.length > 0 ? (
+      props.todos.map((todo) => <p key={todo.id}>{todo.task}</p>)
     ) : (
       <p>No todos available</p>
     )
@@ -28,4 +22,8 @@ const TodoList = (props) => {
   );
 };
 
-export default TodoList;
+const mapStateToProps = (state) => ({
+  todos: state.todo.todos,
+});
+
+export default connect(mapStateToProps, { fetchTodosFromServer })(TodoList);
