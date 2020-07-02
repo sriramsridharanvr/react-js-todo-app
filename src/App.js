@@ -1,24 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Welcome from "./components/Welcome";
+import TodoList from "./components/TodoList";
+
+const user = {
+  name: "Ruksar",
+  email: "ruksar@yethi.in",
+};
+
+const initialTodoData = [
+  {
+    id: 1,
+    completed: false,
+    task: "My first todo",
+  },
+  {
+    id: 2,
+    completed: false,
+    task: "My second todo",
+  },
+  {
+    id: 3,
+    completed: false,
+    task: "My third todo",
+  },
+];
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Welcome user={user} name="Ruksar" email="ruksar.banu@yethi.in" />
       </header>
+      <div className="todo-list">
+        <h3>Todos: 4</h3>
+        <TodoList />
+      </div>
     </div>
   );
 }
